@@ -1,0 +1,98 @@
+//Changelog:
+
+//    May 2016
+
+//version 0.1 - Implementation of the N-body problem in GNU/Octave and C console
+
+//    June 2016
+
+//version 0.2 - Implementation of openGL graphics 
+//version 0.3 - Support for inelastic collisions 
+
+//    July 2016 
+
+//version 0.4 - Split source code into several files corresponding to individual functions 
+//version 0.41- Fixed bugs due to bad use of memory allocation functions (malloc and realloc) 
+//version 0.51- Itroduced a fixed point of view 
+//              Introduced register loop variables to try to make the code faster 
+
+//    August 2016
+
+//              Added keyboard support for 'fixed point of view' and 'path mode' views 
+//version 0.53- Replaced float arithmetic with double arithmetic for the variables x,y,vx,vy,m,r,AU,G,h        
+//              Added keyboard support for pause by pressing the space bar      
+//version 0.60- Introduced structures in the code: values of RGB are now a 'planetColor' structure
+//version 0.61- Replaced parallel array variables x,y,vx,vy,ax,ay,m by an array of 'Planet' structures with individual members x,y,vx,vy,ax,ay,m 
+//version 0.62- Included the struct 'RGB' inside the struct 'Planet', reducing the total number of lines of code by 15;
+//version 0.63- Further code clean up on check_collisions
+//version 0.64- Further code clean up on update_velocities function
+//version 0.65- Re-written the 'check_collisions' function, making planet_id inside the 'Planet' structure - Much shorter and clearer now! 
+//version 0.66- Added Keyboard and Middle-mouse wheel control to change zoom
+//            - Added mouse control to translate the view
+//version 0.67- Added the area of CB's proportional to mass 
+//version 0.69- Merged functions update velocities() and update_positions() into single function update_motion() 
+//            - Implemented calculation of kinetic and potential energies 
+//version 0.70- Set the distance matrix r to be diagonal mainly to halve memory consumption and make the code work for that
+//version 0.71b-Introduced POSIX pthread support for 4 cores. Now the CB's accelerations and distance matrix are computed in parallel
+//version 0.72- Re-organized the code into different .h files to make development easier.
+//              Added option to set calculation using either single core or quad core
+
+//    December 2016
+
+//version 0.73 -Feynman now gets the simulation settings and input data from a settings.txt, positions.txt, velocities.txt, mass.txt
+//version 0.74 -Few minor bug fixes; 
+//             -Added option to change fixed point of view                
+//version 0.75 -Now all functions operate on global variables (and they have no arguments) 
+
+//    Agosto - September 2017
+
+//version 0.76 -Energy (KE and PE) struct made local to function 'display()' and is passed by reference to 'calculate_energies()' 
+//             -'Planet.h' has been renamed to 'Structures.h'
+//             -Introduced 'Keyboard_control' structure
+//             -Introduced 'Mouse_control' structure
+//             -Merged files 'Draw.h' and 'keyboard_control.h' into a single file 'drawing_and_input_controls.h'
+//             -Deleted the variable 'short int view_fixed_on_Planet'. Appearently it was doing nothing.
+//             -The variable 'int number_Collisions' is now local to the function 'void check_collisions(void)'
+
+//version 0.77 -Renamed 'Feynman.c' to 'main.c'
+//             -Organized the code into .h and .c files, as this can be useful if Feynman ever gets big
+//             -Created a 'update_motion.h' and 'update_motion.c' to gather everything related to calculate the motion of CB's
+//             -main.c only contains the 'main()' function
+
+/*version 0.78 -Kept re-organizing the code, kept learning C.
+ *             -Created a Makefile. Now life is easier!
+ * */
+
+/*version 0.79 -Move all the code to the /source directory
+ *             -The Makefile now searchs in /source directory
+ *
+ * */
+
+/*version 0.80 -Feynman calculations are now 3D! Just like in the book! However, opengl drawing is still two dimensional.
+ *
+ * */
+
+
+//    January 2017
+
+/*version 0.81 -Introduced 3D drawing functions 'draw_3D()','display_3D()' and 'init_3D()'
+ *
+ * */
+
+/*version 0.82 - Fixed coding style;
+ *             - Handle linear and Angular momentum Calculations;
+ * */
+
+//To do:
+
+// Improve 3D graphics that were introduced in version 0.81!
+
+// Embbed the program in GTK+ GUI
+
+// The function draw() could possibly do with some 2D opengl function for translation and zoom or something similar to make code clearer 
+
+// read planet fixed camera index via text file or command line arguments
+
+
+
+

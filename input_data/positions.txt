@@ -1,0 +1,10 @@
+copy/paste positions (format x(AU) y(AU) z(AU) with a space between coordinates)
+0 0 0
+0.39 0 0
+0.723 0 0
+1 0 0
+1.524 0 0
+5.203 0 0
+9.539 0 0
+19 0 0
+30 0 0

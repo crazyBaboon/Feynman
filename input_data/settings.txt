@@ -1,0 +1,4 @@
+Change the following values to meet your needs:
+
+Time resolution in seconds
+3600
