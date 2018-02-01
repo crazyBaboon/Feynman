@@ -21,43 +21,44 @@
 
 int calculate_momentum(Momentum *m){
 
-double linear_x = 0;
-double linear_y = 0;
-double linear_z = 0;
-double angular_x = 0;
-double angular_y = 0;
-double angular_z = 0;
+    double linear_x = 0;
+    double linear_y = 0;
+    double linear_z = 0;
+    double angular_x = 0;
+    double angular_y = 0;
+    double angular_z = 0;
 
-register int n;	
-register int l;
+    register int n;	
+    register int l;
 	
 /* Calculate linear momentum of particles */
+
     for (n=0; n<N_planets; n++)
     {
-	    linear_x = linear_x + planet[n].m * planet[n].vx; 
-	    linear_y = linear_y + planet[n].m * planet[n].vy; 
-	    linear_z = linear_z + planet[n].m * planet[n].vz; 
+        linear_x = linear_x + planet[n].m * planet[n].vx; 
+        linear_y = linear_y + planet[n].m * planet[n].vy; 
+        linear_z = linear_z + planet[n].m * planet[n].vz; 
     }
 
-m->linear_x = linear_x;
-m->linear_y = linear_y;
-m->linear_z = linear_z;
+    m->linear_x = linear_x;
+    m->linear_y = linear_y;
+    m->linear_z = linear_z;
 
 /* Calculate angular momentum of particles */
 
 
     for (n=0; n<N_planets; n++)
     {
-	    angular_x = angular_x + planet[n].m * (planet[n].y * planet[n].vz - planet[n].z * planet[n].vy);
-	    angular_y = angular_y + planet[n].m * (planet[n].z * planet[n].vx - planet[n].x * planet[n].vz);
-	    angular_z = angular_z + planet[n].m * (planet[n].x * planet[n].vy - planet[n].y * planet[n].vx);
+        angular_x = angular_x + planet[n].m * (planet[n].y * planet[n].vz - planet[n].z * planet[n].vy);
+        angular_y = angular_y + planet[n].m * (planet[n].z * planet[n].vx - planet[n].x * planet[n].vz);
+        angular_z = angular_z + planet[n].m * (planet[n].x * planet[n].vy - planet[n].y * planet[n].vx);
     }
 
 
 
-m->angular_x = angular_x;
-m->angular_y = angular_y;
-m->angular_z = angular_z;
+    m->angular_x = angular_x;
+    m->angular_y = angular_y;
+    m->angular_z = angular_z;
 
-return 0;
+    return 0;
 }
