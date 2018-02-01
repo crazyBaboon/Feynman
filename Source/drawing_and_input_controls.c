@@ -159,7 +159,7 @@ void display(void) {
             if (Keyboard.P_key_pressed==0)
             {
 		        glClear(GL_COLOR_BUFFER_BIT);
-	        }   
+            }   
         }
    
         switch(Number_of_threads)
