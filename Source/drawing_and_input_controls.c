@@ -153,8 +153,10 @@ void display(void) {
             draw();
             glFlush();  
             //Output time (1 year = 31557600 seconds), number of celestial bodies and kinetic, potential and total energies
-            printf("Time(Years)= %.4f, Number of CB's = %i,  K(J)= %.2E,  P(J)= %.2E, K+P(J)= %.2E, LMx = %.2E\n",iteration*h/31557600, N_planets,system_Energy.KE,system_Energy.PE,system_Energy.KE+system_Energy.PE,system_Momentum.linear_x);
-            dummy_k=iteration;
+            printf("Time(Years)= %.4f, Number of CB's = %i,  K(J)= %.2E,  P(J)= %.2E, K+P(J)= %.2E\n",iteration*h/31557600, N_planets,system_Energy.KE,system_Energy.PE,system_Energy.KE+system_Energy.PE);
+            printf("LMx = %.2E, LMy = %.2E, LMz = %.2E, AMx = %.2E, AMy = %.2E, AMz = %.2E\n",system_Momentum.linear_x,system_Momentum.linear_y,system_Momentum.linear_z,system_Momentum.angular_x,system_Momentum.angular_y,system_Momentum.angular_z);
+            printf("\n");
+	    dummy_k=iteration;
             	 
             if (Keyboard.P_key_pressed==0)
             {
