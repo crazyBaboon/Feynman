@@ -310,7 +310,7 @@ int main(int argc, char **argv){
     glutInitWindowPosition(100,100);
     glutInitWindowSize(600,600);
     glutCreateWindow("Feynman 0.81");
-    glutDisplayFunc(display_3D);
+    glutDisplayFunc(display);
     glutKeyboardFunc(process_keys);
     glutMotionFunc(process_mouse_motion);
     glutMouseFunc(process_mouse);
