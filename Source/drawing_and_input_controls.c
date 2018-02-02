@@ -31,55 +31,53 @@ extern Mouse_control Mouse;
 
 void init_3D(void) 
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
     GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat mat_shininess[] = { 50.0 };
     GLfloat light_ambient[] = { 1.0, 1.0, 1.0, 1.0 };
     GLfloat light_position[] = { -10.0, -10.0, -10.0, 0.0 };
-
     glShadeModel (GL_SMOOTH);
-
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
     glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
     glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-    glEnable(GL_DEPTH_TEST);
-    
+    glEnable(GL_DEPTH_TEST);    
     glMatrixMode(GL_PROJECTION);
 }
 
 
 
-void draw_3D(void) {
-	
-register int n;
-float x0;
-float y0;
-float z0;
+void draw_3D(void) 
+{
+    register int n;
+    float x0;
+    float y0;
+    float z0;
 
-for (n=0; n<N_planets; n++)
+    for (n=0; n<N_planets; n++)
     {
-    if (Keyboard.O_key_pressed==0){
-	  x0=(float)(Mouse.move_right+planet[n].x)/(Mouse.zoom_in_or_out*AU*10); //the viewport does not move, what 'moves' are the coordinates of CB's
-      y0=(float)(Mouse.move_up+planet[n].y)/(Mouse.zoom_in_or_out*AU*10);
-      z0=(float)(Mouse.move_up+planet[n].z)/(Mouse.zoom_in_or_out*AU*10);
-      }else{
-      x0=(float)(planet[n].x-planet[Keyboard.O_key_pressed].x)/(Mouse.zoom_in_or_out*AU*10); //the view gets centered on the planet with index O_key_pressed
-      y0=(float)(planet[n].y-planet[Keyboard.O_key_pressed].y)/(Mouse.zoom_in_or_out*AU*10);
-      z0=(float)(planet[n].z-planet[Keyboard.O_key_pressed].z)/(Mouse.zoom_in_or_out*AU*10);
-	  }
-      float a0=0.003+sqrt(planet[n].m/3.285E23)/1500000;   // Radius of CB's is sqrt() of their mass
-      float b0=0.002+sqrt(planet[n].m/3.285E23)/2250000;
-       glLoadIdentity ();
-       gluPerspective(100,1,0.1,100);
-       gluLookAt (-0.0, -0.10, -1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); /* viewing transformation  */
-       glTranslatef(x0, y0, z0);
-
-       glutSolidSphere (0.02, 30, 30);
+        if (Keyboard.O_key_pressed==0)
+	{
+	    x0=(float)(Mouse.move_right+planet[n].x)/(Mouse.zoom_in_or_out*AU*10); //the viewport does not move, what 'moves' are the coordinates of CB's
+            y0=(float)(Mouse.move_up+planet[n].y)/(Mouse.zoom_in_or_out*AU*10);
+            z0=(float)(Mouse.move_up+planet[n].z)/(Mouse.zoom_in_or_out*AU*10);
+        }
+	else
+	{
+            x0=(float)(planet[n].x-planet[Keyboard.O_key_pressed].x)/(Mouse.zoom_in_or_out*AU*10); //the view gets centered on the planet with index O_key_pressed
+            y0=(float)(planet[n].y-planet[Keyboard.O_key_pressed].y)/(Mouse.zoom_in_or_out*AU*10);
+            z0=(float)(planet[n].z-planet[Keyboard.O_key_pressed].z)/(Mouse.zoom_in_or_out*AU*10);
+	}
+        
+	float a0=0.003+sqrt(planet[n].m/3.285E23)/1500000;   // Radius of CB's is sqrt() of their mass
+        float b0=0.002+sqrt(planet[n].m/3.285E23)/2250000;
+        glLoadIdentity ();
+        gluPerspective(100,1,0.1,100);
+        gluLookAt (-0.0, -0.10, -1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); /* viewing transformation  */
+        glTranslatef(x0, y0, z0);
+        glutSolidSphere (0.02, 30, 30);
     }
     
     glFlush();
@@ -89,35 +87,40 @@ for (n=0; n<N_planets; n++)
 
 
 
-void draw(void) {
+void draw(void) 
+{
+    register int n;
+    float x0;
+    float y0;
 	
-register int n;
-float x0;
-float y0;
+    for (n=0; n<N_planets; n++){
+        if (Keyboard.O_key_pressed==0)
+	{
+	    x0=(float)(Mouse.move_right+planet[n].x)/(Mouse.zoom_in_or_out*AU*10); //the viewport does not move, what 'moves' are the coordinates of CB's
+            y0=(float)(Mouse.move_up+planet[n].y)/(Mouse.zoom_in_or_out*AU*10);
+        }
+	else
+	{
+            x0=(float)(planet[n].x-planet[Keyboard.O_key_pressed].x)/(Mouse.zoom_in_or_out*AU*10); //the view gets centered on the planet with index O_key_pressed
+            y0=(float)(planet[n].y-planet[Keyboard.O_key_pressed].y)/(Mouse.zoom_in_or_out*AU*10);
+	}
+        
+	float a0=0.003+sqrt(planet[n].m/3.285E23)/1500000;   // Radius of CB's is sqrt() of their mass
+        float b0=0.002+sqrt(planet[n].m/3.285E23)/2250000;
 	
-for (n=0; n<N_planets; n++){
-    if (Keyboard.O_key_pressed==0){
-	  x0=(float)(Mouse.move_right+planet[n].x)/(Mouse.zoom_in_or_out*AU*10); //the viewport does not move, what 'moves' are the coordinates of CB's
-      y0=(float)(Mouse.move_up+planet[n].y)/(Mouse.zoom_in_or_out*AU*10);
-      }else{
-      x0=(float)(planet[n].x-planet[Keyboard.O_key_pressed].x)/(Mouse.zoom_in_or_out*AU*10); //the view gets centered on the planet with index O_key_pressed
-      y0=(float)(planet[n].y-planet[Keyboard.O_key_pressed].y)/(Mouse.zoom_in_or_out*AU*10);
-	  }
-      float a0=0.003+sqrt(planet[n].m/3.285E23)/1500000;   // Radius of CB's is sqrt() of their mass
-      float b0=0.002+sqrt(planet[n].m/3.285E23)/2250000;
-	  glBegin(GL_POLYGON); 	            
-      glColor3f(planet[n].color.red, planet[n].color.green, planet[n].color.blue);//Color of the planet      
-      glVertex2f( x0+a0, y0);  
-      glVertex2f( x0+b0,y0+b0);
-      glVertex2f( x0,y0+a0);
-      glVertex2f( x0-b0,y0+b0);
-      glVertex2f( x0-a0,y0);
-      glVertex2f( x0-b0,y0-b0);
-      glVertex2f( x0,y0-a0);
-      glVertex2f( x0+b0,y0-b0);
-      glVertex2f( x0+a0,y0);
-      glEnd();
-} 
+	glBegin(GL_POLYGON); 	            
+        glColor3f(planet[n].color.red, planet[n].color.green, planet[n].color.blue);//Color of the planet      
+        glVertex2f( x0+a0, y0);  
+        glVertex2f( x0+b0,y0+b0);
+        glVertex2f( x0,y0+a0);
+        glVertex2f( x0-b0,y0+b0);
+        glVertex2f( x0-a0,y0);
+        glVertex2f( x0-b0,y0-b0);
+        glVertex2f( x0,y0-a0);
+        glVertex2f( x0+b0,y0-b0);
+        glVertex2f( x0+a0,y0);
+        glEnd();
+    } 
 }
 
 
@@ -160,7 +163,7 @@ void display(void) {
             	 
             if (Keyboard.P_key_pressed==0)
             {
-		        glClear(GL_COLOR_BUFFER_BIT);
+	        glClear(GL_COLOR_BUFFER_BIT);
             }   
         }
    
