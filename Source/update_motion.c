@@ -118,7 +118,7 @@ void* update_accelerations(void* argument)
         {
             if(n == l)
             {
-	        planet[n].ax = planet[n].ax;
+                planet[n].ax = planet[n].ax;
                 planet[n].ay = planet[n].ay;
                 planet[n].az = planet[n].az;
             }
@@ -144,7 +144,7 @@ void* update_distance_matrix(void* argument)
     int thread_number;
     thread_number = *((int *) argument);
     /* indexes of planets to be considered in the nth thread: */
-    int N_planets_thread[8]={0,N_planets/4,N_planets/4+1,2*N_planets/4,2*N_planets/4+1,3*N_planets/4,3*N_planets/4+1,N_planets-1};
+    int N_planets_thread[8] = {0,N_planets/4,N_planets/4+1,2*N_planets/4,2*N_planets/4+1,3*N_planets/4,3*N_planets/4+1,N_planets-1};
     /* Loop variables are declared in the register to make code faster */
     register int n;
     register int l;
@@ -155,14 +155,14 @@ void* update_distance_matrix(void* argument)
     {
         for (l = 0; l < N_planets; l++)
         {
-	    if (n > l)
-	    {
+            if (n > l)
+            {
                 r[n][l] = sqrt(pow((planet[n].x-planet[l].x),2) + pow((planet[n].y-planet[l].y),2) + pow((planet[n].z-planet[l].z),2));
-	    }
+            }
             else
-	    {
+            {
                 continue;
-	    }  /* continue statement is necessary because r[n][l] is triangular and therefore not defined when n<=l */
+            }  /* continue statement is necessary because r[n][l] is triangular and therefore not defined when n<=l */
         }
     }
     return NULL;
@@ -201,9 +201,9 @@ void update_motion_parallel(void)
 
     for (index = 0; index < Number_of_threads; ++index) 
     {
-    thread_args[index] = index;
-    result_code = pthread_create(&threads[index], NULL, update_accelerations, &thread_args[index]);
-    assert(0 == result_code);
+        thread_args[index] = index;
+        result_code = pthread_create(&threads[index], NULL, update_accelerations, &thread_args[index]);
+        assert(0 == result_code);
     }
 	
     for (index = 0; index < Number_of_threads; ++index) 
