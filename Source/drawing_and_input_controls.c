@@ -1,5 +1,5 @@
 /* Feynman  - A simple astronomy simulator written in the C programming language
- * Copyright (C) 2016-2017 Nuno Ferreira
+ * Copyright (C) 2016-2018 Nuno Ferreira and contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,24 +56,24 @@ void draw_3D(void)
     float y0;
     float z0;
 
-    for (n=0; n<N_planets; n++)
+    for (n = 0; n < N_planets; n++)
     {
-        if (Keyboard.O_key_pressed==0)
+        if (Keyboard.O_key_pressed == 0)
 	{
-	    x0=(float)(Mouse.move_right+planet[n].x)/(Mouse.zoom_in_or_out*AU*10); //the viewport does not move, what 'moves' are the coordinates of CB's
-            y0=(float)(Mouse.move_up+planet[n].y)/(Mouse.zoom_in_or_out*AU*10);
-            z0=(float)(Mouse.move_up+planet[n].z)/(Mouse.zoom_in_or_out*AU*10);
+	    x0 = (float)(Mouse.move_right + planet[n].x) / (Mouse.zoom_in_or_out*AU*10); /* the viewport does not move, what 'moves' are the coordinates of CB's */
+            y0 = (float)(Mouse.move_up + planet[n].y) / (Mouse.zoom_in_or_out*AU*10);
+            z0 = (float)(Mouse.move_up + planet[n].z) / (Mouse.zoom_in_or_out*AU*10);
         }
 	else
 	{
-            x0=(float)(planet[n].x-planet[Keyboard.O_key_pressed].x)/(Mouse.zoom_in_or_out*AU*10); //the view gets centered on the planet with index O_key_pressed
-            y0=(float)(planet[n].y-planet[Keyboard.O_key_pressed].y)/(Mouse.zoom_in_or_out*AU*10);
-            z0=(float)(planet[n].z-planet[Keyboard.O_key_pressed].z)/(Mouse.zoom_in_or_out*AU*10);
+            x0 = (float)(planet[n].x - planet[Keyboard.O_key_pressed].x) / (Mouse.zoom_in_or_out*AU*10); /* the view gets centered on the planet with index O_key_pressed */
+            y0 = (float)(planet[n].y - planet[Keyboard.O_key_pressed].y) / (Mouse.zoom_in_or_out*AU*10);
+            z0 = (float)(planet[n].z - planet[Keyboard.O_key_pressed].z) / (Mouse.zoom_in_or_out*AU*10);
 	}
         
-	float a0=0.003+sqrt(planet[n].m/3.285E23)/1500000;   // Radius of CB's is sqrt() of their mass
-        float b0=0.002+sqrt(planet[n].m/3.285E23)/2250000;
-        glLoadIdentity ();
+	float a0 = 0.003 + sqrt(planet[n].m / 3.285E23) / 1500000;   // Radius of CB's is sqrt() of their mass
+        float b0 = 0.002 + sqrt(planet[n].m / 3.285E23) / 2250000;
+        glLoadIdentity();
         gluPerspective(100,1,0.1,100);
         gluLookAt (-0.0, -0.10, -1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); /* viewing transformation  */
         glTranslatef(x0, y0, z0);
@@ -82,7 +82,6 @@ void draw_3D(void)
     
     glFlush();
     glutSwapBuffers();   
-
 }
 
 
@@ -93,23 +92,24 @@ void draw(void)
     float x0;
     float y0;
 	
-    for (n=0; n<N_planets; n++){
-        if (Keyboard.O_key_pressed==0)
+    for (n = 0; n < N_planets; n++)
+    {
+        if (Keyboard.O_key_pressed == 0)
 	{
-	    x0=(float)(Mouse.move_right+planet[n].x)/(Mouse.zoom_in_or_out*AU*10); //the viewport does not move, what 'moves' are the coordinates of CB's
-            y0=(float)(Mouse.move_up+planet[n].y)/(Mouse.zoom_in_or_out*AU*10);
+	    x0 = (float)(Mouse.move_right + planet[n].x) / (Mouse.zoom_in_or_out*AU*10); //the viewport does not move, what 'moves' are the coordinates of CB's
+            y0 = (float)(Mouse.move_up + planet[n].y) / (Mouse.zoom_in_or_out*AU*10);
         }
 	else
 	{
-            x0=(float)(planet[n].x-planet[Keyboard.O_key_pressed].x)/(Mouse.zoom_in_or_out*AU*10); //the view gets centered on the planet with index O_key_pressed
-            y0=(float)(planet[n].y-planet[Keyboard.O_key_pressed].y)/(Mouse.zoom_in_or_out*AU*10);
+            x0 = (float)(planet[n].x - planet[Keyboard.O_key_pressed].x) / (Mouse.zoom_in_or_out*AU*10); //the view gets centered on the planet with index O_key_pressed
+            y0 = (float)(planet[n].y - planet[Keyboard.O_key_pressed].y) / (Mouse.zoom_in_or_out*AU*10);
 	}
         
-	float a0=0.003+sqrt(planet[n].m/3.285E23)/1500000;   // Radius of CB's is sqrt() of their mass
-        float b0=0.002+sqrt(planet[n].m/3.285E23)/2250000;
+	float a0 = 0.003+sqrt(planet[n].m / 3.285E23) / 1500000;   // Radius of CB's is sqrt() of their mass
+        float b0 = 0.002+sqrt(planet[n].m / 3.285E23) / 2250000;
 	
 	glBegin(GL_POLYGON); 	            
-        glColor3f(planet[n].color.red, planet[n].color.green, planet[n].color.blue);//Color of the planet      
+        glColor3f(planet[n].color.red, planet[n].color.green, planet[n].color.blue); /* Color of the planet */      
         glVertex2f( x0+a0, y0);  
         glVertex2f( x0+b0,y0+b0);
         glVertex2f( x0,y0+a0);
@@ -126,42 +126,41 @@ void draw(void)
 
 
 
-void display(void) {
-	
+void display(void) 
+{
     static int dummy_k = 0;
     Energy system_Energy;
     Momentum system_Momentum;
-	
- 
+	 
     system_Energy.KE = 0;
     system_Energy.PE = 0;
     system_Momentum.linear_x = 0;
     system_Momentum.linear_y = 0;
     system_Momentum.linear_z = 0;
 	
-    if (Keyboard.Pause==0)
+    if (Keyboard.Pause == 0)
     {
         iteration++;
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
         
-        if (iteration==1)
+        if (iteration == 1)
         {		
             glClear(GL_COLOR_BUFFER_BIT);
         }
         
-        if (iteration-dummy_k==200)
+        if (iteration-dummy_k == 200)
         {
             calculate_energies(&system_Energy);
             calculate_momentum(&system_Momentum);     
             draw();
             glFlush();  
-            //Output time (1 year = 31557600 seconds), number of celestial bodies and kinetic, potential and total energies
+            /* Output time (1 year = 31557600 seconds), number of celestial bodies and kinetic, potential, total energies and several linear and angular momenta */
             printf("Time(Years)= %.4f, Number of CB's = %i,  K(J)= %.2E,  P(J)= %.2E, K+P(J)= %.2E\n",iteration*h/31557600, N_planets,system_Energy.KE,system_Energy.PE,system_Energy.KE+system_Energy.PE);
             printf("LMx = %.2E, LMy = %.2E, LMz = %.2E, AMx = %.2E, AMy = %.2E, AMz = %.2E\n",system_Momentum.linear_x,system_Momentum.linear_y,system_Momentum.linear_z,system_Momentum.angular_x,system_Momentum.angular_y,system_Momentum.angular_z);
             printf("\n");
-	    dummy_k=iteration;
+	    dummy_k = iteration;
             	 
-            if (Keyboard.P_key_pressed==0)
+            if (Keyboard.P_key_pressed == 0)
             {
 	        glClear(GL_COLOR_BUFFER_BIT);
             }   
@@ -169,10 +168,10 @@ void display(void) {
    
         switch(Number_of_threads)
         {
-	        case 4:	   
+	    case 4:	   
                 update_motion_parallel();
                 break;
-                case 1:
+            case 1:
                 update_motion();
                 break;    
         }
@@ -182,8 +181,8 @@ void display(void) {
 }
 
 
-void display_3D(void) {
-    
+void display_3D(void) 
+{    
     init_3D();
     static int dummy_k = 0;	
     Energy system_Energy;
@@ -195,17 +194,17 @@ void display_3D(void) {
     system_Momentum.linear_y = 0;
     system_Momentum.linear_z = 0;
 	
-    if (Keyboard.Pause==0)
+    if (Keyboard.Pause == 0)
     {
         iteration++;
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
         
-        if (iteration==1)
+        if (iteration == 1)
 	{		
             glClear(GL_COLOR_BUFFER_BIT);
         }
   
-        if (iteration-dummy_k==500)
+        if (iteration-dummy_k == 500)
 	{
             calculate_energies(&system_Energy);
             calculate_momentum(&system_Momentum);
@@ -216,8 +215,8 @@ void display_3D(void) {
             printf("LMx = %.2E, LMy = %.2E, LMz = %.2E, AMx = %.2E, AMy = %.2E, AMz = %.2E\n",system_Momentum.linear_x,system_Momentum.linear_y,system_Momentum.linear_z,system_Momentum.angular_x,system_Momentum.angular_y,system_Momentum.angular_z);
             printf("\n");
          
-            dummy_k=iteration;	 
-            if (Keyboard.P_key_pressed==0)
+            dummy_k = iteration;	  
+            if (Keyboard.P_key_pressed == 0)
 	    {
                 glClear(GL_COLOR_BUFFER_BIT);
 	    }   
@@ -226,11 +225,11 @@ void display_3D(void) {
         switch(Number_of_threads)
 	{
 	    case 4:	   
-            update_motion_parallel();
-            break;
+                update_motion_parallel();
+                break;
             case 1:
-            update_motion();
-            break;    
+                update_motion();
+                break;    
         }	    
         check_collisions();
     }	
@@ -240,70 +239,109 @@ void display_3D(void) {
 
 
 
-void process_keys(unsigned char key, int abba, int baba) {
-      switch (key){    
-       case 27 :      break;
-       case 112 : //  'p' key - enter Path mode
-       if (Keyboard.P_key_pressed==1){Keyboard.P_key_pressed=0;}else{Keyboard.P_key_pressed=1;}; 
-       break;
+void process_keys(unsigned char key, int abba, int baba) 
+{
+    switch (key)
+    {    
+        case 27 :      
+            break;
+        case 112 : /* 'p' key - enter Path mode */
+            if (Keyboard.P_key_pressed == 1)
+	    {
+                Keyboard.P_key_pressed = 0;
+	    }
+            else
+	    {
+                Keyboard.P_key_pressed = 1;
+	    }; 
+            break;
        
-       case 111: //  'o' key - enter Origin mode
-       glClear(GL_COLOR_BUFFER_BIT);
-       if (Keyboard.O_key_pressed<N_planets){Keyboard.O_key_pressed++;}else{Keyboard.O_key_pressed=0;}; 
-       break;
-       
-       case 105 : //  'i' key - zoom in
-       glClear(GL_COLOR_BUFFER_BIT);
-       Mouse.zoom_in_or_out=Mouse.zoom_in_or_out/1.5;
-       h=h/2; //Changes time step
-       break;
-       
-       case 117 : //  'u' key - zoom out
-       glClear(GL_COLOR_BUFFER_BIT);
-       Mouse.zoom_in_or_out=Mouse.zoom_in_or_out*1.5;
-       h=h*2; //Changes time step
-       break;
-       
-       case 32 : //  'spacebar' key - pause simulation
-       if (Keyboard.Pause==1){Keyboard.Pause=0;}else{Keyboard.Pause=1;};
-       break;}
-}
-
-
-void process_mouse(int button, int state, int x, int y){  
-	
-	   //This section is for translation. the coordinates x,y are converted to captured by the mouse at the clicks are converted to distance to offset the graphics
-	   if ((state == GLUT_DOWN) && (button== GLUT_MIDDLE_BUTTON)){
-	   if (Keyboard.O_key_pressed==0){    //Execute the mouse translation only if we are not in 'fixed view' mode
-	   glClear(GL_COLOR_BUFFER_BIT);
-       Mouse.xtemp=x;
-       Mouse.ytemp=y;}else{printf("Exit 'Fixed view mode' by pressing the 'o' key \n");}
+       case 111: /* 'o' key - enter Origin mode */
+           glClear(GL_COLOR_BUFFER_BIT);
+           if (Keyboard.O_key_pressed < N_planets)
+	   {
+               Keyboard.O_key_pressed++;
 	   }
-	   else if ((state == GLUT_UP) && (button== GLUT_MIDDLE_BUTTON)){
-	   if (Keyboard.O_key_pressed==0){   
-	   glClear(GL_COLOR_BUFFER_BIT);
-	   Mouse.move_right = Mouse.move_right-0.02*(float)(Mouse.xtemp-x)*AU*Mouse.zoom_in_or_out;
-	   Mouse.move_up = Mouse.move_up+(0.02*(float)(Mouse.ytemp-y))*AU*Mouse.zoom_in_or_out;}
-	   }	   
-	   
-	   //next section is for zoom in and zoom out
-       else if (button==3){
-	   glClear(GL_COLOR_BUFFER_BIT);
-       Mouse.zoom_in_or_out=Mouse.zoom_in_or_out/1.1;
-       }else if(button==4){ 	   glClear(GL_COLOR_BUFFER_BIT);
-       Mouse.zoom_in_or_out=Mouse.zoom_in_or_out*1.1;
-   }
+           else
+	   {
+               Keyboard.O_key_pressed = 0;
+	   }; 
+           break;
+       
+       case 105 : /* 'i' key - zoom in */
+           glClear(GL_COLOR_BUFFER_BIT);
+           Mouse.zoom_in_or_out = Mouse.zoom_in_or_out / 1.5;
+           h = h / 2; /* Changes time step */
+           break;
+       
+       case 117 : /* 'u' key - zoom out */
+           glClear(GL_COLOR_BUFFER_BIT);
+           Mouse.zoom_in_or_out = Mouse.zoom_in_or_out*1.5;
+           h = h * 2; /* Changes time step */
+           break;
+       
+       case 32 : /* 'spacebar' key - pause simulation */
+           if (Keyboard.Pause == 1)
+	   {
+               Keyboard.Pause = 0;
+	   }
+           else
+	   {
+               Keyboard.Pause = 1;
+	   };
+           break;
+    }
 }
 
 
-void process_mouse_motion(int x, int y){ 
-	
-	if (Keyboard.O_key_pressed==0){
-	glClear(GL_COLOR_BUFFER_BIT);
-	Mouse.move_right=Mouse.move_right-0.02*(float)(Mouse.xtemp-x)*AU*Mouse.zoom_in_or_out;
-	Mouse.move_up=Mouse.move_up+0.02*(float)(Mouse.ytemp-y)*AU*Mouse.zoom_in_or_out;
-    Mouse.xtemp=x;
-    Mouse.ytemp=y;
+void process_mouse(int button, int state, int x, int y)
+{  
+    /* This section is for translation. the coordinates x,y are converted to captured by the mouse at the clicks are converted to distance to offset the graphics */
+    if ((state == GLUT_DOWN) && (button == GLUT_MIDDLE_BUTTON))
+    {
+        if (Keyboard.O_key_pressed == 0) /* Execute the mouse translation only if we are not in 'fixed view' mode */
+	{    
+	    glClear(GL_COLOR_BUFFER_BIT);
+            Mouse.xtemp = x;
+            Mouse.ytemp = y;
+	}
+	else
+	{
+            printf("Exit 'Fixed view mode' by pressing the 'o' key \n");
+	}
+    }
+    else if ((state == GLUT_UP) && (button == GLUT_MIDDLE_BUTTON))
+    {
+        if (Keyboard.O_key_pressed == 0)
+	{   
+	    glClear(GL_COLOR_BUFFER_BIT);
+	    Mouse.move_right = Mouse.move_right - 0.02*(float)(Mouse.xtemp - x)*AU*Mouse.zoom_in_or_out;
+	    Mouse.move_up = Mouse.move_up + (0.02*(float)(Mouse.ytemp - y))*AU*Mouse.zoom_in_or_out;
+	}
+    }		   
+	//next section is for zoom in and zoom out
+    else if (button == 3)
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+        Mouse.zoom_in_or_out=Mouse.zoom_in_or_out / 1.1;
+    }
+    else if(button == 4)
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+        Mouse.zoom_in_or_out=Mouse.zoom_in_or_out * 1.1;
+    }
 }
+
+
+void process_mouse_motion(int x, int y)
+{ 
+    if (Keyboard.O_key_pressed == 0)
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+        Mouse.move_right = Mouse.move_right - 0.02*(float)(Mouse.xtemp-x)*AU*Mouse.zoom_in_or_out;
+        Mouse.move_up = Mouse.move_up + 0.02*(float)(Mouse.ytemp-y)*AU*Mouse.zoom_in_or_out;
+        Mouse.xtemp = x;
+        Mouse.ytemp = y;
+    }
 }
 
