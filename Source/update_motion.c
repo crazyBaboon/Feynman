@@ -96,18 +96,18 @@ void update_motion(void)
 /* The 'update_accelerations' function is called by the multithread 'update_motion_parallel' function */
 void* update_accelerations(void* argument)
 {
-   int thread_number;
-   thread_number = *((int *) argument);
-   /* indexes of planets to be considered in the nth thread: */
+    int thread_number;
+    thread_number = *((int *) argument);
+    /* indexes of planets to be considered in the nth thread: */
 
-   int N_planets_thread[8]={0,N_planets/4,N_planets/4+1,2*N_planets/4,2*N_planets/4+1,3*N_planets/4,3*N_planets/4+1,N_planets-1};
+    int N_planets_thread[8]={0,N_planets/4,N_planets/4+1,2*N_planets/4,2*N_planets/4+1,3*N_planets/4,3*N_planets/4+1,N_planets-1};
 
-   /* Loop variables are declared in the register to make code faster */
-   register int n;
-   register int l;
+    /* Loop variables are declared in the register to make code faster */
+    register int n;
+    register int l;
 
 	
-   /* Calculate accelerations of the CB's */
+    /* Calculate accelerations of the CB's */
     for (n = N_planets_thread[2*thread_number]; n <= N_planets_thread[2*thread_number+1]; n++)  /* divide the planets per thread */
     {
         planet[n].ax = 0;  	/* Set accelerations to 0 */
@@ -191,6 +191,7 @@ void update_motion_parallel(void)
         result_code = pthread_create(&threads[index], NULL, update_distance_matrix, &thread_args[index]);
         assert(0 == result_code);
     }
+    	
     for (index = 0; index < Number_of_threads; ++index) 
     {
         result_code = pthread_join(threads[index], NULL);
