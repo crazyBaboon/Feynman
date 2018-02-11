@@ -24,81 +24,78 @@ pthread_t threads[Number_of_threads];
 int thread_args[Number_of_threads];
 
 /* Update motion using single core computation */
-void update_motion(void) {
-
-/* Loop variables are declared in the register to make code faster */
-register int n;
-register int l;
-
-for (n = 0; n < N_planets; n++)
+void update_motion(void) 
 {
-    planet[n].x = planet[n].x + planet[n].vx*h;  /* Update positions of the CB's */
-    planet[n].y = planet[n].y + planet[n].vy*h;
-    planet[n].z = planet[n].z + planet[n].vz*h;
-}
+    /* Loop variables are declared in the register to make code faster */
+    register int n;
+    register int l;
 
-
-/*   Calculate distances between CB's   */
-
-for (n = 0; n < N_planets; n++)
-{
-    for (l = 0; l < N_planets; l++)
+    for (n = 0; n < N_planets; n++)
     {
-        if (n > l)
-	{
-            r[n][l] = sqrt(pow((planet[n].x - planet[l].x),2) + pow((planet[n].y - planet[l].y),2) + pow((planet[n].z - planet[l].z),2));
-	}
-        else
-        {
-            continue;  /* continue statement is necessary because r[n][l] is triangular and therefore not defined when n<=l */
-        }  
-    }	
-}
-
-
-/*   Calculate accelerations of the CB's   */
-for (n = 0; n < N_planets; n++)
-{
-    planet[n].ax = 0;  	/* Set accelerations to 0 */
-    planet[n].ay = 0;
-    planet[n].az = 0;
-            
-    for (l = 0; l < N_planets; l++)
-    {
-        if (n == l)
-        {
-            planet[n].ax = planet[n].ax;
-            planet[n].ay = planet[n].ay;
-            planet[n].az = planet[n].az;
-        }
-        else if (n > l)
-        {
-            planet[n].ax = planet[n].ax+ -G*(planet[l].m)*(planet[n].x-planet[l].x) / pow(r[n][l],3)   ;
-            planet[n].ay = planet[n].ay+ -G*(planet[l].m)*(planet[n].y-planet[l].y) / pow(r[n][l],3)   ;
-            planet[n].az = planet[n].az+ -G*(planet[l].m)*(planet[n].z-planet[l].z) / pow(r[n][l],3)   ;
-        } 
-        else
-        {
-            planet[n].ax = planet[n].ax+ -G*(planet[l].m)*(planet[n].x-planet[l].x) / pow(r[l][n],3)   ;
-            planet[n].ay = planet[n].ay+ -G*(planet[l].m)*(planet[n].y-planet[l].y) / pow(r[l][n],3)   ;
-            planet[n].az = planet[n].az+ -G*(planet[l].m)*(planet[n].z-planet[l].z) / pow(r[l][n],3)   ;
-        }				
+        planet[n].x = planet[n].x + planet[n].vx*h;  /* Update positions of the CB's */
+        planet[n].y = planet[n].y + planet[n].vy*h;
+        planet[n].z = planet[n].z + planet[n].vz*h;
     }
-}
 
-/*   Calculate velocities of the CB's   */
-for (n = 0; n < N_planets; n++)
-{
-    planet[n].vx = planet[n].vx + planet[n].ax*h; 
-    planet[n].vy = planet[n].vy + planet[n].ay*h;
-    planet[n].vz = planet[n].vz + planet[n].az*h;
-} 
 
+    /*   Calculate distances between CB's   */
+
+    for (n = 0; n < N_planets; n++)
+    {
+        for (l = 0; l < N_planets; l++)
+        {
+            if (n > l)
+            {
+            r[n][l] = sqrt(pow((planet[n].x - planet[l].x),2) + pow((planet[n].y - planet[l].y),2) + pow((planet[n].z - planet[l].z),2));
+            }
+            else
+            {
+            continue;  /* continue statement is necessary because r[n][l] is triangular and therefore not defined when n<=l */
+            }  
+        }	
+    }
+
+	/*   Calculate accelerations of the CB's   */
+    for (n = 0; n < N_planets; n++)
+    {
+        planet[n].ax = 0;  	/* Set accelerations to 0 */
+        planet[n].ay = 0;
+        planet[n].az = 0;
+        for (l = 0; l < N_planets; l++)
+        {
+            if (n == l)
+            {
+                planet[n].ax = planet[n].ax;
+                planet[n].ay = planet[n].ay;
+                planet[n].az = planet[n].az;
+            }
+            else if (n > l)
+            {
+                planet[n].ax = planet[n].ax+ -G*(planet[l].m)*(planet[n].x-planet[l].x) / pow(r[n][l],3)   ;
+                planet[n].ay = planet[n].ay+ -G*(planet[l].m)*(planet[n].y-planet[l].y) / pow(r[n][l],3)   ;
+                planet[n].az = planet[n].az+ -G*(planet[l].m)*(planet[n].z-planet[l].z) / pow(r[n][l],3)   ;
+            } 
+            else
+            {
+                planet[n].ax = planet[n].ax+ -G*(planet[l].m)*(planet[n].x-planet[l].x) / pow(r[l][n],3)   ;
+                planet[n].ay = planet[n].ay+ -G*(planet[l].m)*(planet[n].y-planet[l].y) / pow(r[l][n],3)   ;
+                planet[n].az = planet[n].az+ -G*(planet[l].m)*(planet[n].z-planet[l].z) / pow(r[l][n],3)   ;
+            }				
+        }
+    }
+
+    /*   Calculate velocities of the CB's   */
+    for (n = 0; n < N_planets; n++)
+    {
+        planet[n].vx = planet[n].vx + planet[n].ax*h; 
+        planet[n].vy = planet[n].vy + planet[n].ay*h;
+        planet[n].vz = planet[n].vz + planet[n].az*h;
+    } 
 }
 
 /* The 'update_accelerations' function is called by the multithread 'update_motion_parallel' function */
-void* update_accelerations(void* argument){
-	
+void* update_accelerations(void* argument)
+{
    int thread_number;
    thread_number = *((int *) argument);
    /* indexes of planets to be considered in the nth thread: */
@@ -118,25 +115,25 @@ void* update_accelerations(void* argument){
         planet[n].az = 0;
         
 	for (l = 0; l < N_planets; l++)
-	{
+        {
             if(n == l)
-	    {
+            {
 	        planet[n].ax = planet[n].ax;
                 planet[n].ay = planet[n].ay;
                 planet[n].az = planet[n].az;
-	    }
+            }
             else if (n > l)
-	    {
+            {
                 planet[n].ax = planet[n].ax+ -G*(planet[l].m)*(planet[n].x-planet[l].x) / pow(r[n][l],3);
                 planet[n].ay = planet[n].ay+ -G*(planet[l].m)*(planet[n].y-planet[l].y) / pow(r[n][l],3);
                 planet[n].az = planet[n].az+ -G*(planet[l].m)*(planet[n].z-planet[l].z) / pow(r[n][l],3);} 
             else
-	    {
+            {
                 planet[n].ax = planet[n].ax+ -G*(planet[l].m)*(planet[n].x-planet[l].x) / pow(r[l][n],3);
                 planet[n].ay = planet[n].ay+ -G*(planet[l].m)*(planet[n].y-planet[l].y) / pow(r[l][n],3);
                 planet[n].az = planet[n].az+ -G*(planet[l].m)*(planet[n].z-planet[l].z) / pow(r[l][n],3);
-	    }
-	}
+            }
+        }
     }	
     return NULL;
 }
@@ -157,7 +154,7 @@ void* update_distance_matrix(void* argument)
     for (n = 0; n < N_planets; n++)
     {
         for (l = 0; l < N_planets; l++)
-	{
+        {
 	    if (n > l)
 	    {
                 r[n][l] = sqrt(pow((planet[n].x-planet[l].x),2) + pow((planet[n].y-planet[l].y),2) + pow((planet[n].z-planet[l].z),2));
@@ -166,7 +163,7 @@ void* update_distance_matrix(void* argument)
 	    {
                 continue;
 	    }  /* continue statement is necessary because r[n][l] is triangular and therefore not defined when n<=l */
-	}
+        }
     }
     return NULL;
 }
