@@ -129,15 +129,15 @@ void draw(void)
 void display(void) {
 	
     static int dummy_k = 0;
-	Energy system_Energy;
-	Momentum system_Momentum;
+    Energy system_Energy;
+    Momentum system_Momentum;
 	
  
-	system_Energy.KE = 0;
-	system_Energy.PE = 0;
-	system_Momentum.linear_x = 0;
-	system_Momentum.linear_y = 0;
-	system_Momentum.linear_z = 0;
+    system_Energy.KE = 0;
+    system_Energy.PE = 0;
+    system_Momentum.linear_x = 0;
+    system_Momentum.linear_y = 0;
+    system_Momentum.linear_z = 0;
 	
     if (Keyboard.Pause==0)
     {
@@ -152,7 +152,7 @@ void display(void) {
         if (iteration-dummy_k==200)
         {
             calculate_energies(&system_Energy);
-
+            calculate_momentum(&system_Momentum);     
             draw();
             glFlush();  
             //Output time (1 year = 31557600 seconds), number of celestial bodies and kinetic, potential and total energies
@@ -172,17 +172,13 @@ void display(void) {
 	        case 4:	   
                 update_motion_parallel();
                 break;
-            case 1:
+                case 1:
                 update_motion();
                 break;    
         }
-    
         check_collisions();
-
     }
-
     glutPostRedisplay();
-
 }
 
 
@@ -190,55 +186,55 @@ void display_3D(void) {
     
     init_3D();
     static int dummy_k = 0;	
-	Energy system_Energy;
-	Momentum system_Momentum;
-		
-		
-	system_Energy.KE = 0;
-	system_Energy.PE = 0;
-	system_Momentum.linear_x = 0;
-	system_Momentum.linear_y = 0;
-	system_Momentum.linear_z = 0;
+    Energy system_Energy;
+    Momentum system_Momentum;
+			
+    system_Energy.KE = 0;
+    system_Energy.PE = 0;
+    system_Momentum.linear_x = 0;
+    system_Momentum.linear_y = 0;
+    system_Momentum.linear_z = 0;
 	
-    if (Keyboard.Pause==0){
+    if (Keyboard.Pause==0)
+    {
         iteration++;
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
         
-    if (iteration==1){		
-    glClear(GL_COLOR_BUFFER_BIT);
-    }
-    
-    
-
-        
-    
-    if (iteration-dummy_k==500){
-    calculate_energies(&system_Energy);
+        if (iteration==1)
+	{		
+            glClear(GL_COLOR_BUFFER_BIT);
+        }
+  
+        if (iteration-dummy_k==500)
+	{
+            calculate_energies(&system_Energy);
             calculate_momentum(&system_Momentum);
-    draw_3D();
-    glFlush();  
-    //Output time (1 year = 31557600 seconds), number of celestial bodies and kinetic, potential and total energies
-    printf("Time(Years)= %.4f, Number of CB's = %i,  K(J)= %.2E,  P(J)= %.2E, K+P(J)= %.2E\n",iteration*h/31557600, N_planets,system_Energy.KE,system_Energy.PE,system_Energy.KE+system_Energy.PE);
-    printf("LMx = %.2E, LMy = %.2E, LMz = %.2E, AMx = %.2E, AMy = %.2E, AMz = %.2E\n",system_Momentum.linear_x,system_Momentum.linear_y,system_Momentum.linear_z,system_Momentum.angular_x,system_Momentum.angular_y,system_Momentum.angular_z);
-    printf("\n");
-    
-    dummy_k=iteration;	 
-    if (Keyboard.P_key_pressed==0){
-		glClear(GL_COLOR_BUFFER_BIT);
-	}   
-}
+            draw_3D();
+            glFlush();  
+            //Output time (1 year = 31557600 seconds), number of celestial bodies and kinetic, potential and total energies
+            printf("Time(Years)= %.4f, Number of CB's = %i,  K(J)= %.2E,  P(J)= %.2E, K+P(J)= %.2E\n",iteration*h/31557600, N_planets,system_Energy.KE,system_Energy.PE,system_Energy.KE+system_Energy.PE);
+            printf("LMx = %.2E, LMy = %.2E, LMz = %.2E, AMx = %.2E, AMy = %.2E, AMz = %.2E\n",system_Momentum.linear_x,system_Momentum.linear_y,system_Momentum.linear_z,system_Momentum.angular_x,system_Momentum.angular_y,system_Momentum.angular_z);
+            printf("\n");
+         
+            dummy_k=iteration;	 
+            if (Keyboard.P_key_pressed==0)
+	    {
+                glClear(GL_COLOR_BUFFER_BIT);
+	    }   
+        }
    
-switch(Number_of_threads){
-	case 4:	   
-        update_motion_parallel();
-        break;
-    case 1:
-        update_motion();
-        break;    
-}
-check_collisions();
-}
-glutPostRedisplay();
+        switch(Number_of_threads)
+	{
+	    case 4:	   
+            update_motion_parallel();
+            break;
+            case 1:
+            update_motion();
+            break;    
+        }	    
+        check_collisions();
+    }	
+    glutPostRedisplay();
 }
 
 
