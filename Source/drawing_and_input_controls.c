@@ -253,7 +253,7 @@ void process_keys(unsigned char key, int abba, int baba)
             else
 	    {
                 Keyboard.P_key_pressed = 1;
-	    }; 
+	    } 
             break;
        
        case 111: /* 'o' key - enter Origin mode */
@@ -265,7 +265,7 @@ void process_keys(unsigned char key, int abba, int baba)
            else
 	   {
                Keyboard.O_key_pressed = 0;
-	   }; 
+	   } 
            break;
        
        case 105 : /* 'i' key - zoom in */
@@ -288,7 +288,7 @@ void process_keys(unsigned char key, int abba, int baba)
            else
 	   {
                Keyboard.Pause = 1;
-	   };
+	   }
            break;
     }
 }
