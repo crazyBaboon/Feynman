@@ -288,7 +288,7 @@ void process_keys(unsigned char key, int abba, int baba)
             else
             {
                 Keyboard.Pause = 1;
-	    }
+            }
             break;
     }
 }
