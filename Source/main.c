@@ -71,9 +71,8 @@ Planet *planet;
 
 int main(int argc, char **argv)
 {
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/* Import settings from text file */ 
-   
+    /* Import settings from text file */ 
+
     FILE *fp = fopen("input_data/settings.txt", "r");
         
     if (fp == NULL) 
@@ -84,7 +83,7 @@ int main(int argc, char **argv)
         
     char buffer[255]; 
 
-    //Reads time resolution (double h) from the file:
+    /* Reads time resolution (double h) from the file: */
     char time_resolution[255];
 
     while (fgets(buffer, sizeof buffer, fp) != NULL)
@@ -107,7 +106,7 @@ int main(int argc, char **argv)
     }
 
 
-    //reads how many planets there are by counting the number of position coordinates.
+    /* reads how many planets there are by counting the number of position coordinates. */
     N_planets = -1;
    
     while (fgets(buffer, sizeof buffer, fp2) != NULL)
@@ -115,15 +114,15 @@ int main(int argc, char **argv)
         N_planets++;
     }
 
-    //allocates arrays that are the size of N_planets:
+    /* allocates arrays that are the size of N_planets: */
     planet = (Planet*)malloc(N_planets * sizeof(Planet));
    
-    //create distance matrix r dynamically:
+    /* create distance matrix r dynamically: */
     r = (double **) malloc(N_planets*sizeof(double*));
 
     fclose(fp2);
 
-    //reads the coordinates of the Celestial Bodies:
+    /* reads the coordinates of the Celestial Bodies: */
     FILE *fp3 = fopen("input_data/positions.txt", "r");
     
     if (fp3 == NULL) 
