@@ -30,7 +30,7 @@ void calculate_energies(Energy *e){
     for (n = 0; n < N_planets; n++)
     {
         KE = (KE + 0.5*planet[n].m*(pow(planet[n].vx,2) + pow(planet[n].vy,2) + pow(planet[n].vz,2))  );  /* Calculate Kinetic Energy of the system of particles   K = 0.5*m*(vx^2+vy^2) */
-
+    }
 
     for (n = 0; n < N_planets; n++)
     {
