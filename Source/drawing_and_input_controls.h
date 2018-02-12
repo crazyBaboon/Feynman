@@ -1,5 +1,5 @@
 /* Feynman  - A simple astronomy simulator written in the C programming language
- * Copyright (C) 2016-2018 Nuno Ferreira and contributors
+ * Copyright (C) 2016-2018 Nuno Ferreira
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
