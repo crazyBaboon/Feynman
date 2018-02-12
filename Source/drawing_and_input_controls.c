@@ -71,7 +71,7 @@ void draw_3D(void)
             z0 = (float)(planet[n].z - planet[Keyboard.O_key_pressed].z) / (Mouse.zoom_in_or_out*AU*10);
         }
         
-	float a0 = 0.003 + sqrt(planet[n].m / 3.285E23) / 1500000;   // Radius of CB's is sqrt() of their mass
+        float a0 = 0.003 + sqrt(planet[n].m / 3.285E23) / 1500000;   // Radius of CB's is sqrt() of their mass
         float b0 = 0.002 + sqrt(planet[n].m / 3.285E23) / 2250000;
         glLoadIdentity();
         gluPerspective(100,1,0.1,100);
