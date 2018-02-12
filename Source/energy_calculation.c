@@ -36,7 +36,7 @@ void calculate_energies(Energy *e){
     {
         for (l = 0; l < N_planets; l++)
         { 
-            if(n>l)
+            if(n > l)
             {
                 PE = PE - G*(planet[l].m)*(planet[n].m) / (r[n][l]); /* Calculate potential energy of the system   P=-G*m1*m2/r */
             }  
