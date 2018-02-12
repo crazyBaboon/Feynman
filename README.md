@@ -1,4 +1,4 @@
-Feynman (c)2016-2018 Nuno Ferreira
+Feynman (c) 2016-2018 Nuno Ferreira
 
 License: GNU General Public License version 3 or later
 
