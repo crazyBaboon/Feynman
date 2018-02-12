@@ -38,27 +38,27 @@ void check_collisions(void)   /* Check collisions and manage memory */
             switch ((int)(n > l))
             {
             case 1:
-                    if ((r[n][l] < 0.05*AU) && (n != l) && (planet[l].planet_id != 0 && planet[n].planet_id != 0)) /* Collisions occur if distance is less than 0.05AU - tweak this value if you wish! */
-                    {  
-                        number_Collisions++;
-                        planet[l].planet_id = 0;
-                        planet[n].vx = (planet[n].vx*planet[n].m + planet[l].vx*planet[l].m) / (planet[n].m + planet[l].m);
-                        planet[n].vy = (planet[n].vy*planet[n].m + planet[l].vy*planet[l].m) / (planet[n].m + planet[l].m);
-                        planet[n].vz = (planet[n].vz*planet[n].m + planet[l].vz*planet[l].m) / (planet[n].m + planet[l].m);
-                        planet[n].m = planet[n].m + planet[l].m;
-                    }
-                    break;
-                case 0: // if (n<l) do the same thing but with r[l][n] instead
-                    if ( (r[l][n] < 0.05*AU) && (n != l) && (planet[l].planet_id != 0 && planet[n].planet_id != 0)) /* Collisions occur if distance is less than 0.05AU - tweak this value if you wish! */
-                    {  
-                        number_Collisions++;
-                        planet[l].planet_id = 0;
-                        planet[n].vx = (planet[n].vx*planet[n].m + planet[l].vx*planet[l].m) / (planet[n].m + planet[l].m);
-                        planet[n].vy = (planet[n].vy*planet[n].m + planet[l].vy*planet[l].m) / (planet[n].m + planet[l].m);
-                        planet[n].vz = (planet[n].vz*planet[n].m + planet[l].vz*planet[l].m) / (planet[n].m + planet[l].m);
-                        planet[n].m = planet[n].m + planet[l].m;
-                    }
-                    break;
+                if ((r[n][l] < 0.05*AU) && (n != l) && (planet[l].planet_id != 0 && planet[n].planet_id != 0)) /* Collisions occur if distance is less than 0.05AU - tweak this value if you wish! */
+                {  
+                    number_Collisions++;
+                    planet[l].planet_id = 0;
+                    planet[n].vx = (planet[n].vx*planet[n].m + planet[l].vx*planet[l].m) / (planet[n].m + planet[l].m);
+                    planet[n].vy = (planet[n].vy*planet[n].m + planet[l].vy*planet[l].m) / (planet[n].m + planet[l].m);
+                    planet[n].vz = (planet[n].vz*planet[n].m + planet[l].vz*planet[l].m) / (planet[n].m + planet[l].m);
+                    planet[n].m = planet[n].m + planet[l].m;
+                }
+                break;
+            case 0: // if (n < l) do the same thing but with r[l][n] instead
+                if ( (r[l][n] < 0.05*AU) && (n != l) && (planet[l].planet_id != 0 && planet[n].planet_id != 0)) /* Collisions occur if distance is less than 0.05AU - tweak this value if you wish! */
+                {  
+                    number_Collisions++;
+                    planet[l].planet_id = 0;
+                    planet[n].vx = (planet[n].vx*planet[n].m + planet[l].vx*planet[l].m) / (planet[n].m + planet[l].m);
+                    planet[n].vy = (planet[n].vy*planet[n].m + planet[l].vy*planet[l].m) / (planet[n].m + planet[l].m);
+                    planet[n].vz = (planet[n].vz*planet[n].m + planet[l].vz*planet[l].m) / (planet[n].m + planet[l].m);
+                    planet[n].m = planet[n].m + planet[l].m;
+                }
+                break;
             }
         }
     }
