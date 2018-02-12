@@ -90,7 +90,7 @@ int main(int argc, char **argv)
     while (fgets(buffer, sizeof buffer, fp) != NULL)
     {
         if (buffer[0] == 'T' && buffer[1] == 'i' && buffer[2] == 'm'&& buffer[3] == 'e')
-	{
+        {
             fscanf(fp, "%s", time_resolution);
             h = atof(time_resolution);
         }
@@ -119,7 +119,7 @@ int main(int argc, char **argv)
     planet = (Planet*)malloc(N_planets * sizeof(Planet));
    
     //create distance matrix r dynamically:
-    r=(double **) malloc(N_planets*sizeof(double*));
+    r = (double **) malloc(N_planets*sizeof(double*));
 
     fclose(fp2);
 
@@ -212,11 +212,11 @@ int main(int argc, char **argv)
     for (int n1 = -1; n1 < N_planets; n1++)
     {
         if (n1 == -1)
-	{
+        {
             fgets(buffer, sizeof buffer, fp5);
-	}
+        }
         else
-	{
+        {
             fscanf(fp5, "%s", mass_buffer);
             planet[n1].m = atof(mass_buffer);
         }
@@ -269,13 +269,13 @@ int main(int argc, char **argv)
     for (n = 0; n < N_planets; n++)
     {
         for (l = 0; l < N_planets; l++)
-	{
+        {
             if (n > l)
-	    {
+            {
                 r[n][l] = sqrt(pow((planet[n].x-planet[l].x),2) + pow((planet[n].y-planet[l].y),2) + pow((planet[n].z-planet[l].z),2) ) ;
             }
             else
-	    {
+            {
                 continue;
             }
         }
@@ -286,21 +286,21 @@ int main(int argc, char **argv)
     for (n = 0; n < N_planets; n++)
     {
         for (l = 0; l < N_planets; l++)
-	{
+        {
             if (n == l)
-	    {
+            {
 	        planet[n].ax = planet[n].ax;
                 planet[n].ay = planet[n].ay;	
                 planet[n].az = planet[n].az;
             }
             else if (n > l)
-	    {
+            {
                 planet[n].ax = planet[n].ax+ -G*(planet[l].m)*(planet[n].x-planet[l].x)/pow(r[n][l],3);
                 planet[n].ay = planet[n].ay+ -G*(planet[l].m)*(planet[n].y-planet[l].y)/pow(r[n][l],3); 
                 planet[n].az = planet[n].az+ -G*(planet[l].m)*(planet[n].z-planet[l].z)/pow(r[n][l],3); 		
             }
             else
-	    {
+            {
                 planet[n].ax = planet[n].ax+ -G*(planet[l].m)*(planet[n].x-planet[l].x)/pow(r[l][n],3);
                 planet[n].ay = planet[n].ay+ -G*(planet[l].m)*(planet[n].y-planet[l].y)/pow(r[l][n],3);	
                 planet[n].az = planet[n].az+ -G*(planet[l].m)*(planet[n].z-planet[l].z)/pow(r[l][n],3);		
