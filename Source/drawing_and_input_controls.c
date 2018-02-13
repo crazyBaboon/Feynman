@@ -60,7 +60,7 @@ void draw_3D(void)
     {
         if (Keyboard.O_key_pressed == 0)
         {
-	    x0 = (float)(Mouse.move_right + planet[n].x) / (Mouse.zoom_in_or_out*AU*10); /* the viewport does not move, what 'moves' are the coordinates of CB's */
+            x0 = (float)(Mouse.move_right + planet[n].x) / (Mouse.zoom_in_or_out*AU*10); /* the viewport does not move, what 'moves' are the coordinates of CB's */
             y0 = (float)(Mouse.move_up + planet[n].y) / (Mouse.zoom_in_or_out*AU*10);
             z0 = (float)(Mouse.move_up + planet[n].z) / (Mouse.zoom_in_or_out*AU*10);
         }
@@ -168,12 +168,12 @@ void display(void)
    
         switch(Number_of_threads)
         {
-            case 4:	   
-                update_motion_parallel();
-                break;
-            case 1:
-                update_motion();
-                break;    
+        case 4:	   
+            update_motion_parallel();
+            break;
+        case 1:
+            update_motion();
+            break;    
         }
         check_collisions();
     }
@@ -224,12 +224,12 @@ void display_3D(void)
    
         switch(Number_of_threads)
         {
-            case 4:	   
-                update_motion_parallel();
-                break;
-            case 1:
-                update_motion();
-                break;    
+        case 4:	   
+            update_motion_parallel();
+            break;
+        case 1:
+            update_motion();
+            break;    
         }	    
         check_collisions();
     }	
@@ -243,53 +243,53 @@ void process_keys(unsigned char key, int abba, int baba)
 {
     switch (key)
     {    
-        case 27 :      
-            break;
-        case 112 : /* 'p' key - enter Path mode */
-            if (Keyboard.P_key_pressed == 1)
-            {
-                Keyboard.P_key_pressed = 0;
-            }
-            else
-            {
-                Keyboard.P_key_pressed = 1;
-            } 
-            break;
-       
-        case 111: /* 'o' key - enter Origin mode */
-            glClear(GL_COLOR_BUFFER_BIT);
-            if (Keyboard.O_key_pressed < N_planets)
-            {
-                Keyboard.O_key_pressed++;
-            }
-            else
-            {
-                Keyboard.O_key_pressed = 0;
-            } 
-            break;
+    case 27 :      
+        break;
+    case 112 : /* 'p' key - enter Path mode */
+        if (Keyboard.P_key_pressed == 1)
+        {
+            Keyboard.P_key_pressed = 0;
+        }
+        else
+        {
+            Keyboard.P_key_pressed = 1;
+        } 
+        break;
+      
+    case 111: /* 'o' key - enter Origin mode */
+        glClear(GL_COLOR_BUFFER_BIT);
+        if (Keyboard.O_key_pressed < N_planets)
+        {
+            Keyboard.O_key_pressed++;
+        }
+        else
+        {
+            Keyboard.O_key_pressed = 0;
+        } 
+        break;
         
-        case 105 : /* 'i' key - zoom in */
-            glClear(GL_COLOR_BUFFER_BIT);
-            Mouse.zoom_in_or_out = Mouse.zoom_in_or_out / 1.5;
-            h = h / 2; /* Changes time step */
-            break;
+    case 105 : /* 'i' key - zoom in */
+        glClear(GL_COLOR_BUFFER_BIT);
+        Mouse.zoom_in_or_out = Mouse.zoom_in_or_out / 1.5;
+        h = h / 2; /* Changes time step */
+        break;
           
-        case 117 : /* 'u' key - zoom out */
-            glClear(GL_COLOR_BUFFER_BIT);
-            Mouse.zoom_in_or_out = Mouse.zoom_in_or_out*1.5;
-            h = h * 2; /* Changes time step */
-            break;
+    case 117 : /* 'u' key - zoom out */
+        glClear(GL_COLOR_BUFFER_BIT);
+        Mouse.zoom_in_or_out = Mouse.zoom_in_or_out*1.5;
+        h = h * 2; /* Changes time step */
+        break;
        
-        case 32 : /* 'spacebar' key - pause simulation */
-            if (Keyboard.Pause == 1)
-            {
-                Keyboard.Pause = 0;
-            }
-            else
-            {
-                Keyboard.Pause = 1;
-            }
-            break;
+    case 32 : /* 'spacebar' key - pause simulation */
+        if (Keyboard.Pause == 1)
+        {
+            Keyboard.Pause = 0;
+        }
+        else
+        {
+            Keyboard.Pause = 1;
+        }
+        break;
     }
 }
 
