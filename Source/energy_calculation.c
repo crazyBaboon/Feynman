@@ -43,7 +43,7 @@ void calculate_energies(Energy *e){
             else
             {
                 PE = PE;
-	    }
+            }
         }
     }
 
